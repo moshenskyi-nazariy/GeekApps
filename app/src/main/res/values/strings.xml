@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">GeekApps</string>
+    <string name="text_favorites">Favourites</string>
+    <string name="text_audiobooks">AudioBooks</string>
+    <string name="text_movies">Movies</string>
+    <string name="text_podcasts">Podcasts</string>
 </resources>
