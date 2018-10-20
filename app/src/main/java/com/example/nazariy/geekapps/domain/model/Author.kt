@@ -1,4 +1,4 @@
-package com.example.nazariy.geekapps.presentation.model
+package com.example.nazariy.geekapps.domain.model
 
 class Author {
 
