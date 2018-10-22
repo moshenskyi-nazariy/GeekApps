@@ -5,5 +5,9 @@ import kotlinx.coroutines.experimental.Deferred
 import retrofit2.Response
 
 interface AbstractRepository {
-    fun getAudioBook(): Deferred<Response<ItunesModel>>
+    fun getAudioBooks(): Deferred<Response<ItunesModel>>
+
+    fun getMovies(): Deferred<Response<ItunesModel>>
+
+    fun getPodcasts(): Deferred<Response<ItunesModel>>
 }

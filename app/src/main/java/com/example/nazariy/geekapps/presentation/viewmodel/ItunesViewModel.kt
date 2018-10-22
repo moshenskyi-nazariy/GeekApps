@@ -14,9 +14,33 @@ class ItunesViewModel : ViewModel() {
     val error = MutableLiveData<String>()
 
     fun loadAudiobooks() {
-        var remoteRepository = RemoteRepository()
+        val remoteRepository = RemoteRepository()
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
-            val response = remoteRepository.getAudioBook().await()
+            val response = remoteRepository.getAudioBooks().await()
+            if (response.isSuccessful) {
+                audioBooks.postValue(response.body()?.feed?.results)
+            } else {
+                error.postValue(response.message())
+            }
+        })
+    }
+
+    fun loadMovies() {
+        val remoteRepository = RemoteRepository()
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
+            val response = remoteRepository.getMovies().await()
+            if (response.isSuccessful) {
+                audioBooks.postValue(response.body()?.feed?.results)
+            } else {
+                error.postValue(response.message())
+            }
+        })
+    }
+
+    fun loadPodcasts() {
+        val remoteRepository = RemoteRepository()
+        GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, null, {
+            val response = remoteRepository.getPodcasts().await()
             if (response.isSuccessful) {
                 audioBooks.postValue(response.body()?.feed?.results)
             } else {

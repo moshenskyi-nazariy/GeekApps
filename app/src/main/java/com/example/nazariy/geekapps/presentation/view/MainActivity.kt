@@ -4,6 +4,9 @@ import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
 import com.example.nazariy.geekapps.R
+import com.example.nazariy.geekapps.presentation.view.fragments.AudiobooksFragment
+import com.example.nazariy.geekapps.presentation.view.fragments.MoviesFragment
+import com.example.nazariy.geekapps.presentation.view.fragments.PodcastsFragment
 
 class MainActivity : AppCompatActivity() {
     private lateinit var navigationView: BottomNavigationView
@@ -23,6 +26,12 @@ class MainActivity : AppCompatActivity() {
                 R.id.action_audiobooks -> {
                     showAudiobooksFragment()
                 }
+                R.id.action_movies -> {
+                    showMoviesFragment()
+                }
+                R.id.action_podcasts -> {
+                    showPodcastsFragment()
+                }
             }
             true
         }
@@ -31,7 +40,21 @@ class MainActivity : AppCompatActivity() {
     private fun showAudiobooksFragment() {
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.itunes_container, ItunesItemsFragment())
+                .replace(R.id.itunes_container, AudiobooksFragment())
+                .commit()
+    }
+
+    private fun showPodcastsFragment() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.itunes_container, PodcastsFragment())
+                .commit()
+    }
+
+    private fun showMoviesFragment() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.itunes_container, MoviesFragment())
                 .commit()
     }
 
