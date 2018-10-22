@@ -1,92 +1,62 @@
 package com.example.nazariy.geekapps.presentation.view
 
-import android.content.Context
-import android.net.Uri
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-
+import android.widget.Toast
 import com.example.nazariy.geekapps.R
-
-// TODO: Rename parameter arguments, choose names that match
-// the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-private const val ARG_PARAM1 = "param1"
-private const val ARG_PARAM2 = "param2"
+import com.example.nazariy.geekapps.databinding.ItunesListItemBinding
+import com.example.nazariy.geekapps.domain.model.Result
+import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
 
 class ItunesItemsFragment : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
-    private var listener: OnFragmentInteractionListener? = null
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        arguments?.let {
-            param1 = it.getString(ARG_PARAM1)
-            param2 = it.getString(ARG_PARAM2)
-        }
-    }
+    private lateinit var itunesViewModel: ItunesViewModel
+    private lateinit var itunesItemAdapter: ItunesItemAdapter
+    private lateinit var itunesList: RecyclerView
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_itunes_items, container, false)
+        val root = inflater.inflate(R.layout.fragment_itunes_items, container, false)
+        initUi(root)
+        initViewModel()
+        itunesViewModel.loadAudiobooks()
+        return root
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    fun onButtonPressed(uri: Uri) {
-        listener?.onFragmentInteraction(uri)
+    private fun initUi(root: View) {
+        itunesList = root.findViewById(R.id.itunes_list) as RecyclerView
+
+        itunesItemAdapter = ItunesItemAdapter()
+        itunesList.adapter = itunesItemAdapter
+
+        itunesList.layoutManager = LinearLayoutManager(activity,
+                LinearLayoutManager.VERTICAL,
+                false)
     }
 
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        if (context is OnFragmentInteractionListener) {
-            listener = context
-        } else {
-            throw RuntimeException(context.toString() + " must implement OnFragmentInteractionListener")
-        }
+    private fun initViewModel() {
+        itunesViewModel = ViewModelProviders.of(this)
+                .get(ItunesViewModel::class.java)
+        itunesViewModel.error.observe(this, Observer { value ->
+            value?.let { showMessage(value) }
+        })
+
+        itunesViewModel.audioBooks.observe(this, Observer { value ->
+            value?.let { obtainResult(value) }
+        })
     }
 
-    override fun onDetach() {
-        super.onDetach()
-        listener = null
+    private fun obtainResult(result: List<Result>) {
+        itunesItemAdapter.update(result)
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     *
-     *
-     * See the Android Training lesson [Communicating with Other Fragments]
-     * (http://developer.android.com/training/basics/fragments/communicating.html)
-     * for more information.
-     */
-    interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        fun onFragmentInteraction(uri: Uri)
-    }
-
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment ItunesItemsFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-                ItunesItemsFragment().apply {
-                    arguments = Bundle().apply {
-                        putString(ARG_PARAM1, param1)
-                        putString(ARG_PARAM2, param2)
-                    }
-                }
+    private fun showMessage(message: String) {
+        Toast.makeText(activity, message, Toast.LENGTH_LONG).show()
     }
 }

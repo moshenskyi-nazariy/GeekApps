@@ -1,29 +1,46 @@
 package com.example.nazariy.geekapps.presentation.view
 
+import android.databinding.BindingAdapter
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import com.example.nazariy.geekapps.R
+import android.widget.ImageView
+import com.bumptech.glide.Glide
+import com.example.nazariy.geekapps.databinding.ItunesListItemBinding
 import com.example.nazariy.geekapps.domain.model.Result
-import kotlinx.android.synthetic.main.itunes_list_item.view.*
 
-class ItunesItemAdapter(val results: List<Result>) : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
+@BindingAdapter("imageUrl")
+fun setImageUrl(imageView: ImageView, url: String) {
+    val context = imageView.context
+    Glide.with(context).load(url).into(imageView)
+}
+
+class ItunesItemAdapter : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
+    private var results: List<Result> = ArrayList()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItunesItemViewHolder {
-        val root = LayoutInflater.from(parent.context)
-                .inflate(R.layout.itunes_list_item, parent, false)
-        return ItunesItemViewHolder(root)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemBinding = ItunesListItemBinding.inflate(layoutInflater,
+                        parent, false)
+        return ItunesItemViewHolder(itemBinding)
     }
 
-    override fun getItemCount(): Int {
-        return results.size
-    }
+    override fun getItemCount() = results.size
+
 
     override fun onBindViewHolder(holder: ItunesItemViewHolder, position: Int) {
-        holder.artistName.text = results[position].artistName
+        holder.bind(results[position])
     }
 
-    class ItunesItemViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val artistName = itemView.artist_name!!
+    fun update(results: List<Result>) {
+        this.results +=results
+        notifyDataSetChanged()
+    }
+
+    class ItunesItemViewHolder(private val itemBinding: ItunesListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+        fun bind(result: Result) {
+            itemBinding.model = result
+            itemBinding.executePendingBindings()
+        }
     }
 }

@@ -1,37 +1,38 @@
 package com.example.nazariy.geekapps.presentation.view
 
-import android.arch.lifecycle.Observer
-import android.arch.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.support.design.widget.BottomNavigationView
 import android.support.v7.app.AppCompatActivity
-import android.widget.Toast
 import com.example.nazariy.geekapps.R
-import com.example.nazariy.geekapps.domain.model.Result
-import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
 
 class MainActivity : AppCompatActivity() {
-    private lateinit var itunesViewModel: ItunesViewModel
+    private lateinit var navigationView: BottomNavigationView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        itunesViewModel = ViewModelProviders.of(this)
-                .get(ItunesViewModel::class.java)
-        itunesViewModel.error.observe(this, Observer { value ->
-            value?.let { showMessage(value) }
-        })
-
-        itunesViewModel.audioBooks.observe(this, Observer { value ->
-            value?.let { obtainResult(value) }
-        })
+        initNavigationView()
+        showAudiobooksFragment()
     }
 
-    private fun obtainResult(result: List<Result>) {
-
+    private fun initNavigationView() {
+        navigationView = findViewById(R.id.itunes_list_category)
+        navigationView.setOnNavigationItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.action_audiobooks -> {
+                    showAudiobooksFragment()
+                }
+            }
+            true
+        }
     }
 
-    fun showMessage(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show()
+    private fun showAudiobooksFragment() {
+        supportFragmentManager
+                .beginTransaction()
+                .replace(R.id.itunes_container, ItunesItemsFragment())
+                .commit()
     }
+
 }
