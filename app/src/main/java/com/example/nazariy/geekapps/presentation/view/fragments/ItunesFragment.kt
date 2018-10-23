@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.widget.Toast
-import com.example.nazariy.geekapps.domain.model.Result
+import com.example.nazariy.geekapps.domain.model.rss.Result
 import com.example.nazariy.geekapps.presentation.view.ItunesItemAdapter
 import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
 

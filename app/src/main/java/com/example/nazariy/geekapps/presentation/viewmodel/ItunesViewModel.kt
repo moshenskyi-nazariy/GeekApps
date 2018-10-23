@@ -3,7 +3,7 @@ package com.example.nazariy.geekapps.presentation.viewmodel
 import android.arch.lifecycle.MutableLiveData
 import android.arch.lifecycle.ViewModel
 import com.example.nazariy.geekapps.data.remote.RemoteRepository
-import com.example.nazariy.geekapps.domain.model.Result
+import com.example.nazariy.geekapps.domain.model.rss.Result
 import kotlinx.coroutines.experimental.CoroutineStart
 import kotlinx.coroutines.experimental.Dispatchers
 import kotlinx.coroutines.experimental.GlobalScope

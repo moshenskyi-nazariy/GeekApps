@@ -6,7 +6,7 @@
 
         <variable
             name="model"
-            type="com.example.nazariy.geekapps.domain.model.Result" />
+            type="com.example.nazariy.geekapps.domain.model.rss.Result" />
 
         <variable
             name="glide"

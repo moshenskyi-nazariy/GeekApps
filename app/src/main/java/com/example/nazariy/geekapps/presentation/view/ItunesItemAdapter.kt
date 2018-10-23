@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.nazariy.geekapps.databinding.ItunesListItemBinding
-import com.example.nazariy.geekapps.domain.model.Result
+import com.example.nazariy.geekapps.domain.model.rss.Result
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {

@@ -1,0 +1,22 @@
+package com.example.nazariy.geekapps.domain.model.lookup
+
+data class DetailsResult(var wrapperType: String?,
+                         var artistId: Int = 0,
+                         var collectionId: Int = 0,
+                         var artistName: String?,
+                         var collectionName: String?,
+                         var collectionCensoredName: String?,
+                         var artistViewUrl: String?,
+                         var collectionViewUrl: String?,
+                         var artworkUrl60: String?,
+                         var artworkUrl100: String?,
+                         var collectionPrice: Double = 0.toDouble(),
+                         var collectionExplicitness: String?,
+                         var trackCount: Int = 0,
+                         var copyright: String?,
+                         var country: String?,
+                         var currency: String?,
+                         var releaseDate: String?,
+                         var primaryGenreName: String?,
+                         var previewUrl: String?,
+                         var description: String?)
