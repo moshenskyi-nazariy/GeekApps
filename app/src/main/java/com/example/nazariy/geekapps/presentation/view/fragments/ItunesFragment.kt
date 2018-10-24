@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.view.View
+import android.view.animation.AnimationUtils
+import android.view.animation.LayoutAnimationController
 import android.widget.Toast
 import com.example.nazariy.geekapps.R
 import com.example.nazariy.geekapps.domain.model.rss.Result
@@ -64,7 +66,12 @@ open class ItunesFragment : Fragment(), AdapterClickListener {
     }
 
     private fun obtainResult(result: List<Result>) {
+        val controller: LayoutAnimationController =
+                AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_slide_right)
+
+        itunesList.layoutAnimation = controller
         itunesItemAdapter.update(result)
+        itunesList.scheduleLayoutAnimation()
     }
 
     private fun showMessage(message: String) {
