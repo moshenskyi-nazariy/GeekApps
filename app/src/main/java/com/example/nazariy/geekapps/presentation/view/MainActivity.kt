@@ -20,7 +20,7 @@ class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListe
         setContentView(R.layout.activity_main)
 
         initNavigationView()
-        showAudiobooksFragment()
+        showFragment(AudiobooksFragment())
     }
 
     override fun onBackPressed() {
@@ -33,17 +33,16 @@ class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListe
         navigationView.setOnNavigationItemSelectedListener { item ->
             if (isAlreadySelected) {
                 isAlreadySelected = false
-            }
-            else {
+            } else {
                 when (item.itemId) {
                     R.id.action_audiobooks -> {
-                        showAudiobooksFragment()
+                        showFragment(AudiobooksFragment())
                     }
                     R.id.action_movies -> {
-                        showMoviesFragment()
+                        showFragment(MoviesFragment())
                     }
                     R.id.action_podcasts -> {
-                        showPodcastsFragment()
+                        showFragment(PodcastsFragment())
                     }
                 }
             }
@@ -51,27 +50,12 @@ class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListe
         }
     }
 
-    private fun showAudiobooksFragment() {
+    private fun showFragment(fragment: ItunesFragment) {
         supportFragmentManager
                 .beginTransaction()
-                .replace(R.id.itunes_container, AudiobooksFragment())
-                .addToBackStack(AudiobooksFragment::class.java.simpleName)
-                .commit()
-    }
-
-    private fun showPodcastsFragment() {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.itunes_container, PodcastsFragment())
-                .addToBackStack(PodcastsFragment::class.java.simpleName)
-                .commit()
-    }
-
-    private fun showMoviesFragment() {
-        supportFragmentManager
-                .beginTransaction()
-                .replace(R.id.itunes_container, MoviesFragment())
-                .addToBackStack(MoviesFragment::class.java.simpleName)
+                .setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
+                .replace(R.id.itunes_container, fragment)
+                .addToBackStack(fragment::class.java.simpleName)
                 .commit()
     }
 
