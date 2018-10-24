@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import com.example.nazariy.geekapps.R
 
 class PodcastsFragment : ItunesFragment() {
+    override var localFragmentTag: String = PodcastsFragment::class.java.simpleName
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {

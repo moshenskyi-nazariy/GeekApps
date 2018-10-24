@@ -29,7 +29,7 @@ class RemoteRepository : AbstractRepository {
         return rssApi.getPodcasts()
     }
 
-    override fun getDetils(id: String): Deferred<Response<DetailsResponse>> {
+    override fun getDetails(id: String): Deferred<Response<DetailsResponse>> {
         return lookupApi.getDetails(id)
     }
 

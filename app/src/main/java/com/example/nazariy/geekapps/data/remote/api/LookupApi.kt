@@ -7,6 +7,6 @@ import retrofit2.http.GET
 import retrofit2.http.Query
 
 interface LookupApi {
-    @GET()
+    @GET("lookup")
     fun getDetails(@Query("id") id: String): Deferred<Response<DetailsResponse>>
 }

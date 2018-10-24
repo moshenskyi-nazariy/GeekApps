@@ -8,6 +8,7 @@ import android.widget.ImageView
 import com.bumptech.glide.Glide
 import com.example.nazariy.geekapps.databinding.ItunesListItemBinding
 import com.example.nazariy.geekapps.domain.model.rss.Result
+import com.example.nazariy.geekapps.presentation.view.fragments.AdapterClickListener
 
 @BindingAdapter("imageUrl")
 fun setImageUrl(imageView: ImageView, url: String) {
@@ -15,13 +16,14 @@ fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(context).load(url).into(imageView)
 }
 
-class ItunesItemAdapter : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
+class ItunesItemAdapter(listener: AdapterClickListener) : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
     private var results: List<Result> = ArrayList()
+    private val adapterClickListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItunesItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
         val itemBinding = ItunesListItemBinding.inflate(layoutInflater,
-                        parent, false)
+                parent, false)
         return ItunesItemViewHolder(itemBinding)
     }
 
@@ -33,14 +35,18 @@ class ItunesItemAdapter : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewH
     }
 
     fun update(results: List<Result>) {
-        this.results +=results
+        this.results += results
         notifyDataSetChanged()
     }
 
-    class ItunesItemViewHolder(private val itemBinding: ItunesListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
+    inner class ItunesItemViewHolder(private val itemBinding: ItunesListItemBinding) : RecyclerView.ViewHolder(itemBinding.root) {
         fun bind(result: Result) {
             itemBinding.model = result
             itemBinding.executePendingBindings()
+
+            itemView.setOnClickListener {
+                adapterClickListener.onClick(result.id)
+            }
         }
     }
 }

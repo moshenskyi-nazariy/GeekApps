@@ -12,5 +12,5 @@ interface AbstractRepository {
 
     fun getPodcasts(): Deferred<Response<ItunesModel>>
 
-    fun getDetils(id: String): Deferred<Response<DetailsResponse>>
+    fun getDetails(id: String): Deferred<Response<DetailsResponse>>
 }
