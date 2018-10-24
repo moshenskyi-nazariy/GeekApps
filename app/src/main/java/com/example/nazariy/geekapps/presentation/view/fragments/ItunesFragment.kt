@@ -81,6 +81,7 @@ open class ItunesFragment : Fragment(), AdapterClickListener {
     override fun onClick(id: String?) {
         id?.let { DetailsFragment.newInstance(it) }?.let {
             activity?.supportFragmentManager?.beginTransaction()
+                    ?.setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
                     ?.replace(R.id.itunes_container, it)
                     ?.addToBackStack(DetailsFragment::class.java.simpleName)
                     ?.commit()
