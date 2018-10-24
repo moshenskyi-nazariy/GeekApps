@@ -51,7 +51,7 @@ open class ItunesFragment : Fragment(), AdapterClickListener {
             value?.let { showMessage(value) }
         })
 
-        itunesViewModel.audioBooks.observe(this, Observer { value ->
+        itunesViewModel.itunesItems.observe(this, Observer { value ->
             value?.let { obtainResult(value) }
         })
     }

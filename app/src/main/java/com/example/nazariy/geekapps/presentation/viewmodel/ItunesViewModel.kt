@@ -11,7 +11,7 @@ import kotlinx.coroutines.experimental.GlobalScope
 import kotlinx.coroutines.experimental.launch
 
 class ItunesViewModel : ViewModel() {
-    val audioBooks = MutableLiveData<List<Result>>()
+    val itunesItems = MutableLiveData<List<Result>>()
     val error = MutableLiveData<String>()
     val details: MutableLiveData<List<DetailsResult>> = MutableLiveData()
 
@@ -20,7 +20,7 @@ class ItunesViewModel : ViewModel() {
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, {
             val response = remoteRepository.getAudioBooks().await()
             if (response.isSuccessful) {
-                audioBooks.postValue(response.body()?.feed?.results)
+                itunesItems.postValue(response.body()?.feed?.results)
             } else {
                 error.postValue(response.message())
             }
@@ -32,7 +32,7 @@ class ItunesViewModel : ViewModel() {
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, {
             val response = remoteRepository.getMovies().await()
             if (response.isSuccessful) {
-                audioBooks.postValue(response.body()?.feed?.results)
+                itunesItems.postValue(response.body()?.feed?.results)
             } else {
                 error.postValue(response.message())
             }
@@ -44,7 +44,7 @@ class ItunesViewModel : ViewModel() {
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, {
             val response = remoteRepository.getPodcasts().await()
             if (response.isSuccessful) {
-                audioBooks.postValue(response.body()?.feed?.results)
+                itunesItems.postValue(response.body()?.feed?.results)
             } else {
                 error.postValue(response.message())
             }

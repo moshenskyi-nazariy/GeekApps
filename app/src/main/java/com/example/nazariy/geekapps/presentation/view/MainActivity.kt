@@ -2,12 +2,10 @@ package com.example.nazariy.geekapps.presentation.view
 
 import android.os.Bundle
 import android.support.design.widget.BottomNavigationView
+import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
 import com.example.nazariy.geekapps.R
-import com.example.nazariy.geekapps.presentation.view.fragments.AudiobooksFragment
-import com.example.nazariy.geekapps.presentation.view.fragments.ItunesFragment
-import com.example.nazariy.geekapps.presentation.view.fragments.MoviesFragment
-import com.example.nazariy.geekapps.presentation.view.fragments.PodcastsFragment
+import com.example.nazariy.geekapps.presentation.view.fragments.*
 
 class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListener {
 
@@ -44,13 +42,16 @@ class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListe
                     R.id.action_podcasts -> {
                         showFragment(PodcastsFragment())
                     }
+                    R.id.action_favorites -> {
+                        showFragment(FavouritesFragment())
+                    }
                 }
             }
             true
         }
     }
 
-    private fun showFragment(fragment: ItunesFragment) {
+    private fun showFragment(fragment: Fragment) {
         supportFragmentManager
                 .beginTransaction()
                 .setCustomAnimations(R.anim.slide_in, R.anim.slide_out)
