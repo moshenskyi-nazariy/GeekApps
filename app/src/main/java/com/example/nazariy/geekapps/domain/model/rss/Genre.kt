@@ -1,10 +1,11 @@
 package com.example.nazariy.geekapps.domain.model.rss
 
-import io.realm.RealmObject
+import com.example.nazariy.geekapps.data.local.entities.GenreRealm
 
 data class Genre(
         var genreId: String?,
         var name: String?,
-        var url: String?) : RealmObject() {
-    constructor() : this(null, null, null)
+        var url: String?) {
+    constructor(genreRealm: GenreRealm) : this(genreRealm.genreId, genreRealm.name,
+            genreRealm.url)
 }

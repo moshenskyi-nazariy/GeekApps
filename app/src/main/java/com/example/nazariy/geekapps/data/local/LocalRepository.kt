@@ -1,35 +1,38 @@
 package com.example.nazariy.geekapps.data.local
 
-import com.example.nazariy.geekapps.domain.interfaces.AbstractRepository
 import com.example.nazariy.geekapps.domain.interfaces.ILocalRepository
-import com.example.nazariy.geekapps.domain.model.lookup.DetailsResponse
-import com.example.nazariy.geekapps.domain.model.rss.ItunesModel
 import com.example.nazariy.geekapps.domain.model.rss.Result
-import kotlinx.coroutines.experimental.Deferred
-import retrofit2.Response
+import io.realm.Realm
 
-class LocalRepository: AbstractRepository, ILocalRepository {
+class LocalRepository : ILocalRepository {
+    private val dao: ResultDao
+
+    init {
+        val realm = Realm.getDefaultInstance()
+        dao = ResultDao(realm)
+    }
+
     override fun getFavourites(): List<Result> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        return dao.getFavourites()
     }
 
-    override fun saveFavourites(results: List<Result>) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveFavourites(favourite: Result) {
+        dao.saveFavourites(favourite)
     }
 
-    override fun getAudioBooks(): Deferred<Response<ItunesModel>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getAudioBooks(): List<Result> {
+        return dao.getAudioBooks()
     }
 
-    override fun getMovies(): Deferred<Response<ItunesModel>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getMovies(): List<Result> {
+        return dao.getMovies()
     }
 
-    override fun getPodcasts(): Deferred<Response<ItunesModel>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun getPodcasts(): List<Result> {
+        return dao.getPodcasts()
     }
 
-    override fun getDetails(id: String): Deferred<Response<DetailsResponse>> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    override fun saveResults(results: List<Result>) {
+        dao.saveResults(results)
     }
 }

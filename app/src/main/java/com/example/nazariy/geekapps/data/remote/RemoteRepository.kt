@@ -3,7 +3,7 @@ package com.example.nazariy.geekapps.data.remote
 import com.example.nazariy.geekapps.BuildConfig
 import com.example.nazariy.geekapps.data.remote.api.LookupApi
 import com.example.nazariy.geekapps.data.remote.api.RssApi
-import com.example.nazariy.geekapps.domain.interfaces.AbstractRepository
+import com.example.nazariy.geekapps.domain.interfaces.IRemoteRepository
 import com.example.nazariy.geekapps.domain.model.lookup.DetailsResponse
 import com.example.nazariy.geekapps.domain.model.rss.ItunesModel
 import com.jakewharton.retrofit2.adapter.kotlin.coroutines.experimental.CoroutineCallAdapterFactory
@@ -12,7 +12,7 @@ import retrofit2.Response
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-class RemoteRepository : AbstractRepository {
+class RemoteRepository : IRemoteRepository {
 
     private var rssApi: RssApi
     private var lookupApi: LookupApi

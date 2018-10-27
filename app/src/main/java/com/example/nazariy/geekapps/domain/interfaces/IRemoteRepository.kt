@@ -5,7 +5,7 @@ import com.example.nazariy.geekapps.domain.model.rss.ItunesModel
 import kotlinx.coroutines.experimental.Deferred
 import retrofit2.Response
 
-interface AbstractRepository {
+interface IRemoteRepository {
     fun getAudioBooks(): Deferred<Response<ItunesModel>>
 
     fun getMovies(): Deferred<Response<ItunesModel>>

@@ -1,6 +1,6 @@
 package com.example.nazariy.geekapps.domain.model.rss
 
-import io.realm.RealmObject
+import com.example.nazariy.geekapps.data.local.entities.ResultRealm
 
 data class Result(
         var artistName: String?,
@@ -14,8 +14,9 @@ data class Result(
         var artworkUrl100: String?,
         var genres: List<Genre>?,
         var url: String?,
-        var contentAdvisoryRating: String?) : RealmObject() {
-    constructor() : this(null, null, null, null, null,
-            null, null, null, null, null,
-            null, null)
+        var contentAdvisoryRating: String?) {
+    constructor(resultRealm: ResultRealm) : this(resultRealm.artistName, resultRealm.id,
+            resultRealm.releaseDate, resultRealm.name, resultRealm.kind, resultRealm.copyright,
+            resultRealm.artistId, resultRealm.artistUrl, resultRealm.artworkUrl100,
+            ResultMapper.mapGenres(resultRealm.genres), resultRealm.url, resultRealm.contentAdvisoryRating)
 }
