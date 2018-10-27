@@ -105,11 +105,15 @@ class ItunesViewModel : ViewModel() {
 
     fun loadDetails(id: String) {
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, {
-            val response = remoteRepository.getDetails(id).await()
-            if (response.isSuccessful) {
-                details.postValue(response.body()?.results)
-            } else {
-                error.postValue(response.message())
+            try {
+                val response = remoteRepository.getDetails(id).await()
+                if (response.isSuccessful) {
+                    details.postValue(response.body()?.results)
+                } else {
+                    error.postValue(response.message())
+                }
+            } catch (exception: IOException) {
+                error.postValue(connectionError)
             }
         })
     }
