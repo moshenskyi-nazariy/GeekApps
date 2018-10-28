@@ -16,7 +16,7 @@ class ResultDao(private val realmDb: Realm) {
 
     fun getFavourites(): List<Result> {
         realmDb.beginTransaction()
-        val results = realmDb.where(ResultRealm::class.java).findAll()
+        val results = realmDb.where(ResultRealm::class.java).equalTo("isChecked", true).findAll()
         realmDb.commitTransaction()
         return getList(results)
     }

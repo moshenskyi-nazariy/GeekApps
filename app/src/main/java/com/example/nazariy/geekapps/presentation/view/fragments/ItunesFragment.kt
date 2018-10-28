@@ -15,7 +15,7 @@ import com.example.nazariy.geekapps.domain.model.rss.Result
 import com.example.nazariy.geekapps.presentation.view.ItunesItemAdapter
 import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
 
-open class ItunesFragment : Fragment(), AdapterClickListener {
+open class ItunesFragment : Fragment(), AdapterClickListener, ItunesItemAdapter.OnFavouriteAdded {
 
     protected lateinit var itunesViewModel: ItunesViewModel
     protected lateinit var itunesList: RecyclerView
@@ -57,7 +57,7 @@ open class ItunesFragment : Fragment(), AdapterClickListener {
     }
 
     protected open fun initUi(root: View) {
-        itunesItemAdapter = ItunesItemAdapter(this)
+        itunesItemAdapter = ItunesItemAdapter(this, this)
         itunesList.adapter = itunesItemAdapter
 
         itunesList.layoutManager = LinearLayoutManager(activity,
@@ -86,6 +86,10 @@ open class ItunesFragment : Fragment(), AdapterClickListener {
                     ?.addToBackStack(DetailsFragment::class.java.simpleName)
                     ?.commit()
         }
+    }
+
+    override fun onFavouriteItemChanged(result: Result) {
+        itunesViewModel.saveFavourite(result)
     }
 
     interface OnFragmentAppearedListener {

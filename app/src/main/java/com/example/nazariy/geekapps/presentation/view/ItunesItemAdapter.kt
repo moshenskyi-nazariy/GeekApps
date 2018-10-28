@@ -16,9 +16,9 @@ fun setImageUrl(imageView: ImageView, url: String) {
     Glide.with(context).load(url).into(imageView)
 }
 
-class ItunesItemAdapter(listener: AdapterClickListener) : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
+class ItunesItemAdapter(private val itemClickListener: AdapterClickListener, private val likeIconClickListener: OnFavouriteAdded)
+    : RecyclerView.Adapter<ItunesItemAdapter.ItunesItemViewHolder>() {
     private var results: List<Result> = ArrayList()
-    private val adapterClickListener = listener
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItunesItemViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -45,8 +45,17 @@ class ItunesItemAdapter(listener: AdapterClickListener) : RecyclerView.Adapter<I
             itemBinding.executePendingBindings()
 
             itemView.setOnClickListener {
-                adapterClickListener.onClick(result.id)
+                itemClickListener.onClick(result.id)
+            }
+
+            itemBinding.likeIcon.setOnCheckedChangeListener { _, isChecked ->
+                result.isChecked = isChecked
+                likeIconClickListener.onFavouriteItemChanged(result)
             }
         }
+    }
+
+    interface OnFavouriteAdded {
+        fun onFavouriteItemChanged(result: Result)
     }
 }

@@ -16,7 +16,7 @@ class LocalRepository : ILocalRepository {
         return dao.getFavourites()
     }
 
-    override fun saveFavourites(favourite: Result) {
+    override fun saveFavourite(favourite: Result) {
         dao.saveFavourites(favourite)
     }
 

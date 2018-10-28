@@ -55,6 +55,10 @@ class ItunesViewModel : ViewModel() {
         })
     }
 
+    fun saveFavourite(result: Result) {
+        localRepository.saveFavourite(result)
+    }
+
     private fun getDataFromWebAndShowResult(response: Response<ItunesModel>) {
         if (response.isSuccessful) {
             val results = response.body()?.feed?.results

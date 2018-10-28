@@ -59,7 +59,7 @@ class DetailsFragment : Fragment() {
         private const val ARG_ID = "id"
 
         fun newInstance(id: String): DetailsFragment {
-            val args: Bundle = Bundle()
+            val args = Bundle()
             args.putSerializable(ARG_ID, id)
             val fragment = DetailsFragment()
             fragment.arguments = args

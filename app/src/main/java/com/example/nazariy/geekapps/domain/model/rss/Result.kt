@@ -14,9 +14,11 @@ data class Result(
         var artworkUrl100: String?,
         var genres: List<Genre>?,
         var url: String?,
-        var contentAdvisoryRating: String?) {
+        var contentAdvisoryRating: String?,
+        var isChecked: Boolean?) {
     constructor(resultRealm: ResultRealm) : this(resultRealm.artistName, resultRealm.id,
             resultRealm.releaseDate, resultRealm.name, resultRealm.kind, resultRealm.copyright,
             resultRealm.artistId, resultRealm.artistUrl, resultRealm.artworkUrl100,
-            ResultMapper.mapGenres(resultRealm.genres), resultRealm.url, resultRealm.contentAdvisoryRating)
+            ResultMapper.mapGenres(resultRealm.genres), resultRealm.url,
+            resultRealm.contentAdvisoryRating, resultRealm.isChecked)
 }

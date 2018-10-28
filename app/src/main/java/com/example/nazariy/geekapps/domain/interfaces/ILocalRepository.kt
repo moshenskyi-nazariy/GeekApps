@@ -4,7 +4,7 @@ import com.example.nazariy.geekapps.domain.model.rss.Result
 
 interface ILocalRepository {
     fun getFavourites(): List<Result>
-    fun saveFavourites(favourite: Result)
+    fun saveFavourite(favourite: Result)
     fun getAudioBooks(): List<Result>
     fun getMovies(): List<Result>
     fun getPodcasts(): List<Result>

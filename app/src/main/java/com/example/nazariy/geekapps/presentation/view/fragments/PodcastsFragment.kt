@@ -20,7 +20,7 @@ class PodcastsFragment : ItunesFragment() {
     }
 
     override fun initUi(root: View) {
-        itunesList = root.findViewById(R.id.audiobooks_list) as RecyclerView
+        itunesList = root.findViewById(R.id.itunes_list) as RecyclerView
 
         super.initUi(root)
     }

@@ -65,7 +65,8 @@ class MainActivity : AppCompatActivity(), ItunesFragment.OnFragmentAppearedListe
         when (tag) {
             AudiobooksFragment::class.java.simpleName -> navigationView.selectedItemId = R.id.action_audiobooks
             MoviesFragment::class.java.simpleName -> navigationView.selectedItemId = R.id.action_movies
-            else -> navigationView.selectedItemId = R.id.action_podcasts
+            PodcastsFragment::class.java.simpleName -> navigationView.selectedItemId = R.id.action_podcasts
+            else -> navigationView.selectedItemId = R.id.action_favorites
         }
     }
 }
