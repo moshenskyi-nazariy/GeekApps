@@ -48,6 +48,11 @@ class ItunesItemAdapter(private val itemClickListener: AdapterClickListener, pri
                 itemClickListener.onClick(result.id)
             }
 
+            setLikeIcon(result)
+        }
+
+        private fun setLikeIcon(result: Result) {
+            result.isChecked?.let { itemBinding.likeIcon.isChecked = result.isChecked!! }
             itemBinding.likeIcon.setOnCheckedChangeListener { _, isChecked ->
                 result.isChecked = isChecked
                 likeIconClickListener.onFavouriteItemChanged(result)
