@@ -8,10 +8,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import com.example.nazariy.geekapps.R
 import com.example.nazariy.geekapps.databinding.FragmentDetailsBinding
 import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
+import kotlinx.android.synthetic.main.fragment_details.*
 
 class DetailsFragment : Fragment() {
     private lateinit var itunesViewModel: ItunesViewModel
@@ -47,12 +47,12 @@ class DetailsFragment : Fragment() {
         })
 
         itunesViewModel.details.observe(this, Observer { value ->
-            value?.let { binding.model = value[0] }
+            value?.let { binding.model = value }
         })
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        noDataFound.text = message
     }
 
     companion object {

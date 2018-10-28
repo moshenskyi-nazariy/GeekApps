@@ -10,60 +10,82 @@
 
         <import type="android.text.Html" />
 
+        <import type="android.view.View" />
+
     </data>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <LinearLayout
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            tools:context=".presentation.view.fragments.DetailsFragment">
+            android:layout_height="wrap_content">
 
             <TextView
-                android:id="@+id/details__artist_name"
-                android:layout_width="match_parent"
+                android:id="@+id/noDataFound"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@{model.artistName}"
+                android:layout_gravity="center"
                 android:textSize="24sp"
-                tools:text="Name" />
+                android:visibility='@{model.country == null ? View.VISIBLE : View.GONE}' />
 
-            <TextView
-                android:id="@+id/details__country"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text='@{model.country == null ? "" : String.format(@string/country_placeholder, model.country)}'
-                tools:text="Country" />
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:visibility='@{model == null ? View.GONE : View.VISIBLE}'
+                tools:context=".presentation.view.fragments.DetailsFragment">
 
-            <TextView
-                android:id="@+id/details__artist_view_url"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@{model.artistViewUrl}"
-                android:autoLink="web"
-                tools:text="View url" />
+                <TextView
+                    android:id="@+id/details__artist_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility='@{model.artistName == null ? View.GONE : View.VISIBLE}'
+                    android:text="@{model.artistName}"
+                    android:textSize="24sp"
+                    tools:text="Name" />
 
-            <TextView
-                android:id="@+id/details__primary_genre_name"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text="@{model.primaryGenreName}"
-                tools:text="Primary genre" />
+                <TextView
+                    android:id="@+id/details__country"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility='@{model.country == null ? View.GONE : View.VISIBLE}'
+                    android:text='@{model.country == null ? "" : String.format(@string/country_placeholder, model.country)}'
+                    tools:text="Country" />
 
-            <TextView
-                android:id="@+id/details__description"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
-                android:text='@{model.description == null ? "" :Html.fromHtml(model.description)}'
-                tools:text="Description" />
+                <TextView
+                    android:id="@+id/details__artist_view_url"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:autoLink="web"
+                    android:visibility='@{model.artistViewUrl == null ? View.GONE : View.VISIBLE}'
+                    android:text="@{model.artistViewUrl}"
+                    tools:text="View url" />
 
-        </LinearLayout>
+                <TextView
+                    android:id="@+id/details__primary_genre_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility='@{model.primaryGenreName == null ? View.GONE : View.VISIBLE}'
+                    android:text="@{model.primaryGenreName}"
+                    tools:text="Primary genre" />
+
+                <TextView
+                    android:id="@+id/details__description"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:visibility='@{model.description == null ? View.GONE : View.VISIBLE}'
+                    android:text='@{model.description == null ? "" :Html.fromHtml(model.description)}'
+                    tools:text="Description" />
+
+            </LinearLayout>
+        </FrameLayout>
+
     </ScrollView>
 </layout>

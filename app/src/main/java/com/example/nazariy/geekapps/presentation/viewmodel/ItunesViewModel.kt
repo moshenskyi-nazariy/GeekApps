@@ -14,12 +14,12 @@ import kotlinx.coroutines.experimental.launch
 import retrofit2.Response
 import java.io.IOException
 
-private const val connectionError = "Check your internet connection"
+private const val NO_DATA_FOUND = "No data found"
 
 class ItunesViewModel : ViewModel() {
     val itunesItems = MutableLiveData<List<Result>>()
     val error = MutableLiveData<String>()
-    val details: MutableLiveData<List<DetailsResult>> = MutableLiveData()
+    val details: MutableLiveData<DetailsResult> = MutableLiveData()
 
     private val remoteRepository = RemoteRepository()
     private val localRepository = LocalRepository()
@@ -33,7 +33,7 @@ class ItunesViewModel : ViewModel() {
                     val response = remoteRepository.getAudioBooks().await()
                     getDataFromWebAndShowResult(response)
                 } catch (exception: IOException) {
-                    error.postValue(connectionError)
+                    error.postValue(NO_DATA_FOUND)
                 }
             } else {
                 itunesItems.postValue(localResponse)
@@ -47,7 +47,7 @@ class ItunesViewModel : ViewModel() {
 
         GlobalScope.launch(Dispatchers.Default, CoroutineStart.DEFAULT, {
             if (localResponse.isEmpty()) {
-                error.postValue("No data found")
+                error.postValue(NO_DATA_FOUND)
             } else {
                 itunesItems.postValue(localResponse)
             }
@@ -82,7 +82,7 @@ class ItunesViewModel : ViewModel() {
                     val response = remoteRepository.getMovies().await()
                     getDataFromWebAndShowResult(response)
                 } catch (exception: IOException) {
-                    error.postValue(connectionError)
+                    error.postValue(NO_DATA_FOUND)
                 }
             } else {
                 itunesItems.postValue(localResponse)
@@ -99,7 +99,7 @@ class ItunesViewModel : ViewModel() {
                     val response = remoteRepository.getPodcasts().await()
                     getDataFromWebAndShowResult(response)
                 } catch (exception: IOException) {
-                    error.postValue(connectionError)
+                    error.postValue(NO_DATA_FOUND)
                 }
             } else {
                 itunesItems.postValue(localResponse)
@@ -112,12 +112,12 @@ class ItunesViewModel : ViewModel() {
             try {
                 val response = remoteRepository.getDetails(id).await()
                 if (response.isSuccessful) {
-                    details.postValue(response.body()?.results)
+                    details.postValue(response.body()?.results?.get(0))
                 } else {
                     error.postValue(response.message())
                 }
             } catch (exception: IOException) {
-                error.postValue(connectionError)
+                error.postValue(NO_DATA_FOUND)
             }
         })
     }

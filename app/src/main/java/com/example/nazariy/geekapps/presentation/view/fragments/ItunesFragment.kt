@@ -9,11 +9,11 @@ import android.support.v7.widget.RecyclerView
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.view.animation.LayoutAnimationController
-import android.widget.Toast
 import com.example.nazariy.geekapps.R
 import com.example.nazariy.geekapps.domain.model.rss.Result
 import com.example.nazariy.geekapps.presentation.view.ItunesItemAdapter
 import com.example.nazariy.geekapps.presentation.viewmodel.ItunesViewModel
+import kotlinx.android.synthetic.main.fragment_itunes_items.*
 
 open class ItunesFragment : Fragment(), AdapterClickListener, ItunesItemAdapter.OnFavouriteAdded {
 
@@ -44,7 +44,7 @@ open class ItunesFragment : Fragment(), AdapterClickListener, ItunesItemAdapter.
         listener?.changeBottomNavItem(localFragmentTag)
     }
 
-    protected fun initViewModel() {
+    protected open fun initViewModel() {
         itunesViewModel = ViewModelProviders.of(this)
                 .get(ItunesViewModel::class.java)
         itunesViewModel.error.observe(this, Observer { value ->
@@ -66,6 +66,8 @@ open class ItunesFragment : Fragment(), AdapterClickListener, ItunesItemAdapter.
     }
 
     private fun obtainResult(result: List<Result>) {
+        noDataFound.visibility = View.GONE
+
         val controller: LayoutAnimationController =
                 AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_slide_right)
 
@@ -75,7 +77,8 @@ open class ItunesFragment : Fragment(), AdapterClickListener, ItunesItemAdapter.
     }
 
     private fun showMessage(message: String) {
-        Toast.makeText(activity, message, Toast.LENGTH_SHORT).show()
+        noDataFound.text = message
+        noDataFound.visibility = View.VISIBLE
     }
 
     override fun onClick(id: String?) {
