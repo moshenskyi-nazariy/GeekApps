@@ -13,6 +13,8 @@ import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
 class RemoteRepository : IRemoteRepository {
+    private val gson = GsonConverterFactory.create()
+    private val coroutineCallAdapterFactory = CoroutineCallAdapterFactory()
 
     private var rssApi: RssApi
     private var lookupApi: LookupApi
@@ -36,15 +38,15 @@ class RemoteRepository : IRemoteRepository {
     init {
         val baseRetrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.BASE_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(gson)
+                .addCallAdapterFactory(coroutineCallAdapterFactory)
                 .build()
         rssApi = baseRetrofit.create(RssApi::class.java)
 
         val lookupRetrofit = Retrofit.Builder()
                 .baseUrl(BuildConfig.DETAILS_URL)
-                .addConverterFactory(GsonConverterFactory.create())
-                .addCallAdapterFactory(CoroutineCallAdapterFactory())
+                .addConverterFactory(gson)
+                .addCallAdapterFactory(coroutineCallAdapterFactory)
                 .build()
         lookupApi = lookupRetrofit.create(LookupApi::class.java)
     }

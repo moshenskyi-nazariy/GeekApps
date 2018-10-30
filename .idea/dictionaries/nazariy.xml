@@ -2,6 +2,8 @@
   <dictionary name="nazariy">
     <words>
       <w>audiobooks</w>
+      <w>coroutine</w>
+      <w>gson</w>
       <w>itunes</w>
       <w>navbar</w>
       <w>podcasts</w>
