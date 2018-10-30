@@ -26,7 +26,7 @@ open class ResultRealm(
     constructor(result: Result) :
             this(result.artistName, result.id, result.releaseDate, result.name, result.kind,
                     result.copyright, result.artistId, result.artistUrl, result.artworkUrl100,
-                    RealmResultMapper.mapGenres(result.genres), result.url,
+                    mapGenres(result.genres), result.url,
                     result.contentAdvisoryRating, result.isChecked)
 
     override fun equals(other: Any?): Boolean {
