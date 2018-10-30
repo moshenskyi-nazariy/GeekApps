@@ -6,22 +6,19 @@ import io.realm.RealmObject
 import io.realm.annotations.PrimaryKey
 
 open class ResultRealm(
-        var artistName: String?,
-        @PrimaryKey var id: String?,
-        var releaseDate: String?,
-        var name: String?,
-        var kind: String?,
-        var copyright: String?,
-        var artistId: String?,
-        var artistUrl: String?,
-        var artworkUrl100: String?,
-        var genres: RealmList<GenreRealm>?,
-        var url: String?,
-        var contentAdvisoryRating: String?,
-        var isChecked: Boolean?) : RealmObject() {
-    constructor() : this(null, null, null, null, null,
-            null, null, null, null, null,
-            null, null, false)
+        var artistName: String? = null,
+        @PrimaryKey var id: String? = null,
+        var releaseDate: String? = null,
+        var name: String? = null,
+        var kind: String? = null,
+        var copyright: String? = null,
+        var artistId: String? = null,
+        var artistUrl: String? = null,
+        var artworkUrl100: String? = null,
+        var genres: RealmList<GenreRealm>? = null,
+        var url: String? = null,
+        var contentAdvisoryRating: String? = null,
+        var isChecked: Boolean? = false) : RealmObject() {
 
     constructor(result: Result) :
             this(result.artistName, result.id, result.releaseDate, result.name, result.kind,
